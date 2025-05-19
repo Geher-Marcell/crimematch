@@ -1,19 +1,23 @@
 // ez meg nem vegleges, minden valtozhat ha mar megvan az api hivas
+import dataservice from "./dataservice.ts";
 
 export default class CrimeMatch{
-    criminals = [];
     selectedCriminals = [];
     crimes = [];
+    
+    randomPage = Math.floor(Math.random()*10)
+    criminals = dataservice.getCriminals(this.randomPage);
+    
     constructor() {
         
     }
 
-    GetFiveCriminals(){
-        while(this.criminals.length !=5){
-            let random: number = Math.floor(Math.random()* this.criminals.length) as number;
-            if(!this.selectedCriminals.includes(this.criminals[random])) this.selectedCriminals.push(this.criminals[random]);
-        }
+    
+
+    Validate = (criminal: any): boolean => {
+        return criminal.images && criminal.images.length > 0;
     }
+
 
     
 

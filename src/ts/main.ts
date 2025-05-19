@@ -2,10 +2,13 @@ import dataservice from "./dataservice";
 
 const rootDiv = document.querySelector('#app') as HTMLDivElement;
 const navbarItems = document.querySelectorAll<HTMLAnchorElement>('a[data-href]');
-const activeRandoms = [];
-
+const activeRandoms: any = [];
+const randomPage = Math.floor(Math.random()*7)
+// console.log(randomPage);
 const PAGES = '/pages/';
 
+const imgs = document.querySelectorAll("img");
+console.log(imgs);
 interface Route {
   page: string;
   code?: new () => any;
@@ -22,17 +25,20 @@ const routes: Record<string, Route> = {
 // description a ok amiért bent van
 
 
-dataservice.getCriminals().then((criminals) => {
-  for (let i = 0; i < 5; i++) {
-    const criminal = criminals.items[i];
+dataservice.getCriminals(randomPage).then((criminals) => {
+  while(activeRandoms.length != 5){
+    const criminal = criminals.items[Math.floor(Math.random()*16)];
+    console.log(criminal);
     if (Validate(criminal)) {
       activeRandoms.push(criminal);
     }
   }
 });
 
+console.log(activeRandoms)
+
 const Validate = (criminal: any): boolean => {
-  return criminal.title && criminal.images && criminal.images.length > 0;
+  return criminal.images && criminal.images.length > 0;
 }
 
 const loadPage = async (page: string): Promise<string> => {
