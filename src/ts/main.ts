@@ -14,7 +14,7 @@ interface Route {
 const routes: Record<string, Route> = {
   '/': { page: 'home.html', code: undefined },
   '/main': { page: 'maingame.html', code: undefined },
-  '/challange': { page: 'challangegame.html', code: undefined },
+  '/challange': { page: 'maingame.html', code: undefined },
 };
 
 // a dataservice.getCriminals(?) <= ide kell randomot generálni majd a min és max között, alapértelmezett oldalszám 1
