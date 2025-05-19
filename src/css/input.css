@@ -26,6 +26,30 @@ p {
     background-color: rgb(138, 0, 0);
 }
 
+.card{
+  height: 100%; /* h-full */
+  width: calc(1/5 * 100%); /* w-1/5 */
+  display: flex; /* flex */
+  flex-direction: column; /* flex-col */
+  align-items: center; /* items-center */
+  justify-content: center; /* justify-center */
+  gap: calc(var(--spacing) * 10); /* gap-10 */
+}
+
+.box{
+  border-style: solid; /* border-2 */
+  border-width: 2px; /* border-2 */
+  border-radius: var(--radius-2xl);/*rounded-2xl*/
+  border-color: var(--color-gray-400);/*bg-gray-400*/
+  height: calc(var(--spacing) * 16);/*h-16*/
+  width: 100%;/*w-full*/
+}
+
+.image{
+  width: calc(var(--spacing) * 64); /* w-64 */
+  height: calc(var(--spacing) * 64); /* h-64 */
+}
+
 .wavyText{
   position: relative;
   color: #f5f5f5;
@@ -41,7 +65,7 @@ p {
   
   background: url("/public/Images/wave.png") repeat-x;
   background-size: 100% 50%;
-  background-position-y: 100%;
+  background-position-y: 50%;
   background-clip: text;
   -webkit-text-fill-color: transparent;
 
