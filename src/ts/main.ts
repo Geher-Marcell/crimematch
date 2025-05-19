@@ -1,24 +1,64 @@
-import './style.css'
-import typescriptLogo from './typescript.svg'
-import viteLogo from '/vite.svg'
-import { setupCounter } from './counter.ts'
+import dataservice from "./dataservice";
 
-document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
-  <div>
-    <a href="https://vite.dev" target="_blank">
-      <img src="${viteLogo}" class="logo" alt="Vite logo" />
-    </a>
-    <a href="https://www.typescriptlang.org/" target="_blank">
-      <img src="${typescriptLogo}" class="logo vanilla" alt="TypeScript logo" />
-    </a>
-    <h1>Vite + TypeScript</h1>
-    <div class="card">
-      <button id="counter" type="button"></button>
-    </div>
-    <p class="read-the-docs">
-      Click on the Vite and TypeScript logos to learn more
-    </p>
-  </div>
-`
+const rootDiv = document.querySelector('#app') as HTMLDivElement;
+const navbarItems = document.querySelectorAll<HTMLAnchorElement>('a[data-href]');
 
-setupCounter(document.querySelector<HTMLButtonElement>('#counter')!)
+const PAGES = '/pages/';
+
+interface Route {
+  page: string;
+  code?: new () => any;
+}
+
+const routes: Record<string, Route> = {
+  '/': { page: 'home.html', code: undefined },
+  '/main': { page: 'maingame.html', code: undefined },
+  '/challange': { page: 'challangegame.html', code: undefined },
+};
+
+dataservice.getCriminals().then((criminals) => {
+  for (let i = 0; i < criminals.items.length; i++) {
+    const criminal = criminals.items[i];
+    console.log(criminal["title"]);
+}});
+
+
+const loadPage = async (page: string): Promise<string> => {
+  const response = await fetch(PAGES + page);
+  const resHtml = await response.text();
+  return resHtml;
+};
+
+const dynamicClass = (CodeClass?: new () => void): void => {
+  if (CodeClass) {
+    new CodeClass();
+  }
+};
+
+const onNavClick = async (event: MouseEvent): Promise<void> => {
+  event.preventDefault();
+  const target = event.target as HTMLAnchorElement;
+  const pathName = target.dataset.href as string;
+  window.history.pushState({}, '', pathName);
+  const data = await loadPage(routes[pathName].page);
+  rootDiv.innerHTML = data;
+  dynamicClass(routes[pathName]?.code);
+};
+
+window.addEventListener('load', async () => {
+  const pathName = window.location.pathname;
+  const data = await loadPage(routes[pathName].page);
+  rootDiv.innerHTML = data;
+  dynamicClass(routes[pathName].code);
+});
+
+window.addEventListener('popstate', async () => {
+  const pathName = window.location.pathname;
+  const data = await loadPage(routes[pathName].page);
+  rootDiv.innerHTML = data;
+  dynamicClass(routes[pathName].code);
+});
+
+navbarItems.forEach(navItem => {
+  navItem.addEventListener('click', onNavClick);
+});
