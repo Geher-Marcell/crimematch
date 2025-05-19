@@ -1,23 +1,47 @@
 // ez meg nem vegleges, minden valtozhat ha mar megvan az api hivas
+import type Criminal from "./criminal.ts";
 import dataservice from "./dataservice.ts";
-import { activeRandoms } from "./main.ts";
+import { GetActiveRandoms } from "./main.ts";
+
 
 export default class CrimeMatch{
     /**
      *
      */
-
+    criminals: Criminal[]= [];
+    crimeList: string[]= [];
     constructor() {
-        console.log(activeRandoms)
+        // console.log(activeRandoms)
+        this.Initialize();
+    }
+    
+    async Initialize(){
+        this.criminals= await GetActiveRandoms();
         this.DisplayImages();
+        this.RandomizeCrimes();
+    }
+
+    RandomizeCrimes(){
+        const crimes = document.querySelectorAll(".box-rnd") as NodeListOf<HTMLDivElement>;
+        this.criminals.forEach(c => {
+            this.crimeList.push(c.crime);
+        })
+        const shuffledCrimes = this.crimeList.sort((a, b) => 0.5 - Math.random());
+        console.log(shuffledCrimes);
+        for(let i = 0; i < crimes.length; i++){
+            // console.log(shuffledCrimes[i]);
+            crimes[i].innerHTML = `<p>${shuffledCrimes[i]}</p>`;
+        }
     }
 
     DisplayImages(){
         const imgs = document.querySelectorAll(".image img") as NodeListOf<HTMLImageElement>;
-        console.log(activeRandoms)
-        console.log(imgs);
-        for(let i = 0; i < 5; i++){
-            imgs[i].src = activeRandoms[i].images.original;
+        console.log("képek: " + imgs);
+        console.log("faszok: " + this.criminals)
+        for(let i = 0; i < imgs.length; i++){
+            console.log("Aktuális fasz: " + this.criminals[i])
+            console.log("faszindex: " + i)
+            imgs[i].src = this.criminals[i].img
         }
     }
 

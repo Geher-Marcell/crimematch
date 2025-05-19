@@ -1,5 +1,6 @@
 import dataservice from "./dataservice";
 import CrimeMatch from "./crimematch";
+import Criminal from "./criminal";
 
 const rootDiv = document.querySelector('#app') as HTMLDivElement;
 const navbarItems = document.querySelectorAll<HTMLAnchorElement>('a[data-href]');
@@ -26,20 +27,31 @@ const routes: Record<string, Route> = {
 // description a ok amiért bent van
 
 
-dataservice.getCriminals(randomPage).then((criminals) => {
+
+
+export async function GetActiveRandoms( ){
+  await dataservice.getCriminals(randomPage).then((criminals) => {
   while(activeRandoms.length != 5){
     const criminal = criminals.items[Math.floor(Math.random()*16)];
     // console.log(criminal);
     if (Validate(criminal)) {
-      activeRandoms.push(criminal);
+      let c = new Criminal(criminal);
+      // console.log(c);
+      //TODO: ketszer rakja bele a listaba, kell a fix
+      if(!activeRandoms.includes(c)){
+        activeRandoms.push(c);
+        // console.log(activeRandoms);
+      }
     }
   }
 });
+return activeRandoms;
+}
 
 // console.log(activeRandoms)
 
 const Validate = (criminal: any): boolean => {
-  return criminal.images && criminal.images.length > 0;
+  return criminal.images && criminal.images.length > 0 && criminal.description != "";
 }
 
 const loadPage = async (page: string): Promise<string> => {
