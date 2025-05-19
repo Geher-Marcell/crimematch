@@ -1,1 +1,27 @@
 @import "tailwindcss";
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Bungee', sans-serif;
+}
+
+p {
+  font-family: 'Inter', sans-serif;
+}
+
+#background{
+    position: absolute;
+    top: 0;
+    z-index: -2;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    filter: blur(200px);
+}
+
+#bg .circle{
+    width: 30vw;
+    height: 30vw;
+    position: fixed;
+    border-radius: 50%;
+    background-color: red;
+}

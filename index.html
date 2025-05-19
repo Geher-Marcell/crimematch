@@ -5,9 +5,27 @@
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="./src/css/output.css">
-    <title>Vite + TS</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bungee&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+
+    <title>Crime Match</title>
   </head>
-  <body>
+  <body class="bg-black text-white">
+    <div id="background">
+      <div class="circle"></div>
+      <div class="circle"></div>
+      <div class="circle"></div>
+    </div>
+    <div id="navbar" class="absolute top-0 left-0 w-full h-16 bg-gray-800 flex items-center justify-between px-4">
+      <div class="text-lg font-bold"><h1>Crime Match</h1></div>
+      <div class="flex space-x-4">
+        <a href="#" data-href="home" class="hover:text-gray-400">Home</a>
+        <a href="#" data-href="main" class="hover:text-gray-400">Game</a>
+        <a href="#" data-href="challange" class="hover:text-gray-400">Challange</a>
+      </div>
+    </div>
     <div id="app"></div>
     <script type="module" src="./src/ts/main.ts"></script>
   </body>
