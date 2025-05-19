@@ -1,14 +1,15 @@
 import dataservice from "./dataservice";
+import CrimeMatch from "./crimematch";
 
 const rootDiv = document.querySelector('#app') as HTMLDivElement;
 const navbarItems = document.querySelectorAll<HTMLAnchorElement>('a[data-href]');
-const activeRandoms: any = [];
+export const activeRandoms: any = [];
 const randomPage = Math.floor(Math.random()*7)
 // console.log(randomPage);
 const PAGES = '/pages/';
 
-const imgs = document.querySelectorAll("img");
-console.log(imgs);
+const imgs = document.querySelectorAll(".image");
+// console.log(imgs);
 interface Route {
   page: string;
   code?: new () => any;
@@ -16,7 +17,7 @@ interface Route {
 
 const routes: Record<string, Route> = {
   '/': { page: 'home.html', code: undefined },
-  '/main': { page: 'maingame.html', code: undefined },
+  '/main': { page: 'maingame.html', code: CrimeMatch },
   '/challange': { page: 'maingame.html', code: undefined },
 };
 
@@ -28,14 +29,14 @@ const routes: Record<string, Route> = {
 dataservice.getCriminals(randomPage).then((criminals) => {
   while(activeRandoms.length != 5){
     const criminal = criminals.items[Math.floor(Math.random()*16)];
-    console.log(criminal);
+    // console.log(criminal);
     if (Validate(criminal)) {
       activeRandoms.push(criminal);
     }
   }
 });
 
-console.log(activeRandoms)
+// console.log(activeRandoms)
 
 const Validate = (criminal: any): boolean => {
   return criminal.images && criminal.images.length > 0;

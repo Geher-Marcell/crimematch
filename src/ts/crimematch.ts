@@ -1,24 +1,24 @@
 // ez meg nem vegleges, minden valtozhat ha mar megvan az api hivas
 import dataservice from "./dataservice.ts";
+import { activeRandoms } from "./main.ts";
 
 export default class CrimeMatch{
-    selectedCriminals = [];
-    crimes = [];
-    
-    randomPage = Math.floor(Math.random()*10)
-    criminals = dataservice.getCriminals(this.randomPage);
-    
+    /**
+     *
+     */
+
     constructor() {
-        
+        console.log(activeRandoms)
+        this.DisplayImages();
     }
 
-    
-
-    Validate = (criminal: any): boolean => {
-        return criminal.images && criminal.images.length > 0;
+    DisplayImages(){
+        const imgs = document.querySelectorAll(".image img") as NodeListOf<HTMLImageElement>;
+        console.log(activeRandoms)
+        console.log(imgs);
+        for(let i = 0; i < 5; i++){
+            imgs[i].src = activeRandoms[i].images.original;
+        }
     }
-
-
-    
 
 }
