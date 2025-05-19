@@ -7,6 +7,7 @@
       "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
     --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono",
       "Courier New", monospace;
+    --color-blue-900: oklch(37.9% 0.146 265.522);
     --color-gray-400: oklch(70.7% 0.022 261.325);
     --color-gray-800: oklch(27.8% 0.033 256.848);
     --color-black: #000;
@@ -14,7 +15,13 @@
     --spacing: 0.25rem;
     --text-lg: 1.125rem;
     --text-lg--line-height: calc(1.75 / 1.125);
+    --text-4xl: 2.25rem;
+    --text-4xl--line-height: calc(2.5 / 2.25);
+    --text-5xl: 3rem;
+    --text-5xl--line-height: 1;
     --font-weight-bold: 700;
+    --radius-2xl: 1rem;
+    --radius-3xl: 1.5rem;
     --default-font-family: var(--font-sans);
     --default-mono-font-family: var(--font-mono);
   }
@@ -177,17 +184,44 @@
   .flex {
     display: flex;
   }
+  .h-1\/3 {
+    height: calc(1/3 * 100%);
+  }
   .h-16 {
     height: calc(var(--spacing) * 16);
   }
+  .h-32 {
+    height: calc(var(--spacing) * 32);
+  }
+  .h-96 {
+    height: calc(var(--spacing) * 96);
+  }
+  .h-full {
+    height: 100%;
+  }
+  .h-screen {
+    height: 100vh;
+  }
+  .w-1\/2 {
+    width: calc(1/2 * 100%);
+  }
   .w-full {
     width: 100%;
+  }
+  .w-screen {
+    width: 100vw;
+  }
+  .flex-col {
+    flex-direction: column;
   }
   .items-center {
     align-items: center;
   }
   .justify-between {
     justify-content: space-between;
+  }
+  .justify-center {
+    justify-content: center;
   }
   .space-x-4 {
     :where(& > :not(:last-child)) {
@@ -196,14 +230,43 @@
       margin-inline-end: calc(calc(var(--spacing) * 4) * calc(1 - var(--tw-space-x-reverse)));
     }
   }
+  .rounded-2xl {
+    border-radius: var(--radius-2xl);
+  }
+  .rounded-3xl {
+    border-radius: var(--radius-3xl);
+  }
   .bg-black {
     background-color: var(--color-black);
+  }
+  .bg-blue-900 {
+    background-color: var(--color-blue-900);
   }
   .bg-gray-800 {
     background-color: var(--color-gray-800);
   }
+  .p-3 {
+    padding: calc(var(--spacing) * 3);
+  }
   .px-4 {
     padding-inline: calc(var(--spacing) * 4);
+  }
+  .px-6 {
+    padding-inline: calc(var(--spacing) * 6);
+  }
+  .py-2 {
+    padding-block: calc(var(--spacing) * 2);
+  }
+  .text-center {
+    text-align: center;
+  }
+  .text-4xl {
+    font-size: var(--text-4xl);
+    line-height: var(--tw-leading, var(--text-4xl--line-height));
+  }
+  .text-5xl {
+    font-size: var(--text-5xl);
+    line-height: var(--tw-leading, var(--text-5xl--line-height));
   }
   .text-lg {
     font-size: var(--text-lg);
@@ -245,6 +308,32 @@ p {
   position: fixed;
   border-radius: 50%;
   background-color: rgb(138, 0, 0);
+}
+.wavyText {
+  position: relative;
+  color: #f5f5f5;
+}
+.wavyText::after {
+  content: attr(data-text);
+  z-index: 100;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: url("/public/Images/wave.png") repeat-x;
+  background-size: 100% 50%;
+  background-position-y: 100%;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  -webkit-text-stroke: .4px #f5f5f5;
+  animation: wavy 300s infinite cubic-bezier( 0.36, 0.45, 0.63, 0.53);
+}
+@keyframes wavy {
+  0% {
+    background-position-x: 0px;
+  }
+  100% {
+    background-position-x: 16000px;
+  }
 }
 @property --tw-space-x-reverse {
   syntax: "*";

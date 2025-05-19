@@ -10,6 +10,8 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Bungee&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
 
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
     <title>Crime Match</title>
   </head>
   <body class="bg-black text-white">
@@ -33,12 +35,14 @@
     <div id="navbar" class="absolute top-0 left-0 w-full h-16 bg-gray-800 flex items-center justify-between px-4">
       <div class="text-lg font-bold"><h1>Crime Match</h1></div>
       <div class="flex space-x-4">
-        <a href="#" data-href="home" class="hover:text-gray-400">Home</a>
-        <a href="#" data-href="main" class="hover:text-gray-400">Game</a>
-        <a href="#" data-href="challange" class="hover:text-gray-400">Challange</a>
+        <a href="#" data-href="/" class="hover:text-gray-400">Home</a>
+        <a href="#" data-href="/main" class="hover:text-gray-400">Game</a>
+        <a href="#" data-href="/challange" class="hover:text-gray-400">Challange</a>
       </div>
     </div>
-    <div id="app"></div>
+    <div id="app" class="w-screen h-screen flex items-center justify-center">
+    </div>
     <script type="module" src="./src/ts/main.ts"></script>
+    <script type="module" src="./src/ts/background.ts"></script>
   </body>
 </html>

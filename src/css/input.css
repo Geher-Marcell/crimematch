@@ -25,3 +25,36 @@ p {
     border-radius: 50%;
     background-color: rgb(138, 0, 0);
 }
+
+.wavyText{
+  position: relative;
+  color: #f5f5f5;
+}
+
+.wavyText::after{
+  content: attr(data-text);
+  z-index: 100;
+
+  position: absolute;
+  top: 0;
+  left: 0;
+  
+  background: url("/public/Images/wave.png") repeat-x;
+  background-size: 100% 50%;
+  background-position-y: 100%;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+
+  -webkit-text-stroke: .4px #f5f5f5;
+
+  animation: wavy 300s infinite cubic-bezier( 0.36, 0.45, 0.63, 0.53);
+}
+
+@keyframes wavy{
+  0%{
+      background-position-x: 0px;
+  }
+  100%{
+      background-position-x: 16000px;
+  }
+}
