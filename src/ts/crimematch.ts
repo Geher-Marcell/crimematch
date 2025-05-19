@@ -13,6 +13,15 @@ export default class CrimeMatch{
     constructor() {
         // console.log(activeRandoms)
         this.Initialize();
+        document.querySelectorAll(".drop-zone")
+      document.querySelectorAll(".box-rnd")
+        .forEach(el => el.addEventListener("dragstart", this.dragstartHandler));
+    document.querySelectorAll(".drop-zone")
+        .forEach(zone => {
+            console.log(0);
+          zone.addEventListener("dragover", this.dragoverHandler);
+          zone.addEventListener("drop", this.dropHandler);
+        });
     }
     
     async Initialize(){
@@ -20,6 +29,8 @@ export default class CrimeMatch{
         this.DisplayImages();
         this.RandomizeCrimes();
     }
+
+    
 
     RandomizeCrimes(){
         const crimes = document.querySelectorAll(".box-rnd") as NodeListOf<HTMLDivElement>;
@@ -30,7 +41,7 @@ export default class CrimeMatch{
         console.log(shuffledCrimes);
         for(let i = 0; i < crimes.length; i++){
             // console.log(shuffledCrimes[i]);
-            crimes[i].innerHTML = `<p>${shuffledCrimes[i]}</p>`;
+            crimes[i].innerHTML = `<p >${shuffledCrimes[i]}</p>`;
         }
     }
 
@@ -44,5 +55,21 @@ export default class CrimeMatch{
             imgs[i].src = this.criminals[i].img
         }
     }
+    dragstartHandler(e:any) {
+    e.dataTransfer.setData("text/plain", e.target.id);
+  }
+  dragoverHandler(e:any) {
+    e.preventDefault();
+  }
+  dropHandler(e:any) {
+    e.preventDefault();
+    const id = e.dataTransfer.getData("text/plain");
+    const dragged = document.getElementById(id);
+    if (dragged) {
+      e.currentTarget.appendChild(dragged);
+    }
+  }
+
+    
 
 }
