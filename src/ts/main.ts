@@ -2,6 +2,7 @@ import dataservice from "./dataservice";
 
 const rootDiv = document.querySelector('#app') as HTMLDivElement;
 const navbarItems = document.querySelectorAll<HTMLAnchorElement>('a[data-href]');
+const activeRandoms = [];
 
 const PAGES = '/pages/';
 
@@ -16,12 +17,23 @@ const routes: Record<string, Route> = {
   '/challange': { page: 'challangegame.html', code: undefined },
 };
 
-dataservice.getCriminals().then((criminals) => {
-  for (let i = 0; i < criminals.items.length; i++) {
-    const criminal = criminals.items[i];
-    console.log(criminal["title"]);
-}});
+// a dataservice.getCriminals(?) <= ide kell randomot generálni majd a min és max között, alapértelmezett oldalszám 1
+// images.original a kép
+// description a ok amiért bent van
 
+
+dataservice.getCriminals().then((criminals) => {
+  for (let i = 0; i < 5; i++) {
+    const criminal = criminals.items[i];
+    if (Validate(criminal)) {
+      activeRandoms.push(criminal);
+    }
+  }
+});
+
+const Validate = (criminal: any): boolean => {
+  return criminal.title && criminal.images && criminal.images.length > 0;
+}
 
 const loadPage = async (page: string): Promise<string> => {
   const response = await fetch(PAGES + page);
