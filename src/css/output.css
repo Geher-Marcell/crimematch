@@ -230,21 +230,21 @@ h1, h2, h3, h4, h5, h6 {
 p {
   font-family: 'Inter', sans-serif;
 }
-#background {
+#bg {
   position: absolute;
   top: 0;
   z-index: -2;
   width: 100vw;
   height: 100vh;
   overflow: hidden;
-  filter: blur(200px);
+  filter: blur(80px);
 }
 #bg .circle {
   width: 30vw;
   height: 30vw;
   position: fixed;
   border-radius: 50%;
-  background-color: red;
+  background-color: rgb(138, 0, 0);
 }
 @property --tw-space-x-reverse {
   syntax: "*";
