@@ -26,9 +26,6 @@ const routes: Record<string, Route> = {
 // images.original a kép
 // description a ok amiért bent van
 
-
-
-
 export async function GetActiveRandoms( ){
   await dataservice.getCriminals(randomPage).then((criminals) => {
   while(activeRandoms.length != 5){

@@ -18,7 +18,6 @@ export default class CrimeMatch{
         .forEach(el => el.addEventListener("dragstart", this.dragstartHandler));
     document.querySelectorAll(".drop-zone")
         .forEach(zone => {
-            console.log(0);
           zone.addEventListener("dragover", this.dragoverHandler);
           zone.addEventListener("drop", this.dropHandler);
         });
@@ -38,7 +37,6 @@ export default class CrimeMatch{
             this.crimeList.push(c.crime);
         })
         const shuffledCrimes = this.crimeList.sort((a, b) => 0.5 - Math.random());
-        console.log(shuffledCrimes);
         for(let i = 0; i < crimes.length; i++){
             // console.log(shuffledCrimes[i]);
             crimes[i].innerHTML = `<p >${shuffledCrimes[i]}</p>`;
