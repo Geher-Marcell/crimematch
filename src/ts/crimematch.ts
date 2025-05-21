@@ -21,6 +21,7 @@ export default class CrimeMatch{
           zone.addEventListener("dragover", this.dragoverHandler);
           zone.addEventListener("drop", this.dropHandler);
         });
+      document.querySelector("#guess_btn")?.addEventListener("click", this.CheckMatches.bind(this))
     }
     
     async Initialize(){
@@ -61,13 +62,39 @@ export default class CrimeMatch{
   }
   dropHandler(e:any) {
     e.preventDefault();
+    
     const id = e.dataTransfer.getData("text/plain");
+    // console.log( e.currentTarget);
     const dragged = document.getElementById(id);
-    if (dragged) {
-      e.currentTarget.appendChild(dragged);
+    if(e.currentTarget.children.length == 0){
+
+      // console.log(dragged)
+      if (dragged) {
+        e.currentTarget.appendChild(dragged);
+      } 
+    } 
+  }
+  
+  CheckMatches(){
+    const zones: NodeListOf<HTMLDivElement> = document.querySelectorAll(".guess-zone")
+    for(let i = 0; i < zones.length; i++){
+      // console.log(zones[i]);
+      if(zones[i].children[0] != undefined){
+        
+        let desc: string = (zones[i].children[0]).children[0].innerHTML;
+        this.CheckCorrection(desc, i);
+        // console.log((zones[i].children[0]).children[0].innerHTML)
+      }
     }
+  };
+
+  CheckCorrection(d: string, i: number){
+    const description = this.criminals[i].crime.trim().toLowerCase();
+    const descGuess = d.trim().toLowerCase();
+
+    if(descGuess === description) console.log(`correct ${i}: ${description}-->${descGuess}`);
+    else console.log(`incorrect ${i}: ${description}-->${descGuess}`);
   }
 
-    
 
 }
