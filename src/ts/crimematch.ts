@@ -89,12 +89,14 @@ export default class CrimeMatch {
         if (description == desc) {
           console.log(`correct ${i}: ${description}-->${desc}`);
           zones[i].style.backgroundColor = "green";
+          matchCount++
         } else {
           console.log(`incorrect ${i}: ${description}-->${desc}`);
           zones[i].style.backgroundColor = "red";
         }
       }
     }
+    console.log(matchCount)
     if (matchCount != 5) return;
     console.log("yay");
     (document.querySelector("#msg-div") as HTMLDivElement).innerHTML =
