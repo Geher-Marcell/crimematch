@@ -79,8 +79,12 @@ export default class CrimeMatch {
       if (zones[i].children[0] != undefined) {
         let desc: string = zones[i].children[0].children[0].innerHTML
           .trim()
-          .toLowerCase();
-        const description = this.criminals[i].crime.trim().toLowerCase();
+          .toLowerCase()
+          .replace(/\s+/g, "");
+        const description = this.criminals[i].crime
+          .trim()
+          .toLowerCase()
+          .replace(/\s+/g, "");
 
         if (description == desc) {
           console.log(`correct ${i}: ${description}-->${desc}`);
