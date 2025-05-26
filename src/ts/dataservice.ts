@@ -9,6 +9,7 @@ const Axios = axios.create({
 
 export default {
     getCriminals(page = 1){
+        // console.log(page)
         return Axios.get("/", {
             params: {
                 page
@@ -19,6 +20,8 @@ export default {
         })
         .catch((err) => {
             console.log(err);
+            alert("API error. Please, refresh the page!");
+            // window.location.reload();
         })
     }
 }

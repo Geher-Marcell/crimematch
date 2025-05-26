@@ -9,7 +9,7 @@ const randomPage = Math.floor(Math.random()*7)
 // console.log(randomPage);
 const PAGES = '/pages/';
 
-const imgs = document.querySelectorAll(".image");
+// const imgs = document.querySelectorAll(".image");
 // console.log(imgs);
 interface Route {
   page: string;
@@ -33,9 +33,9 @@ export async function GetActiveRandoms( ){
     // console.log(criminal);
     if (Validate(criminal)) {
       let c = new Criminal(criminal);
-      // console.log(c);
+      console.log(c);
       //TODO: ketszer rakja bele a listaba, kell a fix
-      if(!activeRandoms.includes(c)){
+      if(!activeRandoms.some((existing: Criminal) => existing.img === c.img)){
         activeRandoms.push(c);
         // console.log(activeRandoms);
       }

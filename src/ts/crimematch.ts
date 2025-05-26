@@ -43,11 +43,11 @@ export default class CrimeMatch {
     const imgs = document.querySelectorAll(
       ".image img"
     ) as NodeListOf<HTMLImageElement>;
-    console.log("képek: " + imgs);
-    console.log("faszok: " + this.criminals);
+    // console.log("képek: " + imgs);
+    // console.log("faszok: " + this.criminals);
     for (let i = 0; i < imgs.length; i++) {
-      console.log("Aktuális fasz: " + this.criminals[i]);
-      console.log("faszindex: " + i);
+      // console.log("Aktuális fasz: " + this.criminals[i]);
+      // console.log("faszindex: " + i);
       imgs[i].src = this.criminals[i].img;
     }
   }
@@ -88,11 +88,14 @@ export default class CrimeMatch {
 
         if (description == desc) {
           console.log(`correct ${i}: ${description}-->${desc}`);
-          zones[i].style.backgroundColor = "green";
+          zones[i].parentElement!.style.backgroundColor = "green";
+          // zones[i].style.borderRadius = "var(--radius-2xl)"
           matchCount++
         } else {
           console.log(`incorrect ${i}: ${description}-->${desc}`);
-          zones[i].style.backgroundColor = "red";
+          zones[i].parentElement!.style.backgroundColor = "red";
+          // zones[i].style.borderRadius = "var(--radius-2xl)";
+
         }
       }
     }
