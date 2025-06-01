@@ -2,15 +2,13 @@ import dataservice from "./dataservice";
 import CrimeMatch from "./crimematch";
 import Criminal from "./criminal";
 
+export const activeRandoms: any = [];
 const rootDiv = document.querySelector('#app') as HTMLDivElement;
 const navbarItems = document.querySelectorAll<HTMLAnchorElement>('a[data-href]');
-export const activeRandoms: any = [];
-const randomPage = Math.floor(Math.random()*7)
-// console.log(randomPage);
+const randomPage = Math.floor(Math.random() * 7)
+
 const PAGES = '/pages/';
 
-// const imgs = document.querySelectorAll(".image");
-// console.log(imgs);
 interface Route {
   page: string;
   code?: new () => any;
@@ -19,33 +17,24 @@ interface Route {
 const routes: Record<string, Route> = {
   '/': { page: 'home.html', code: undefined },
   '/main': { page: 'maingame.html', code: CrimeMatch },
-  '/challange': { page: 'maingame.html', code: undefined },
 };
 
-// a dataservice.getCriminals(?) <= ide kell randomot generálni majd a min és max között, alapértelmezett oldalszám 1
-// images.original a kép
-// description a ok amiért bent van
 
-export async function GetActiveRandoms( ){
+export async function GetActiveRandoms() {
   await dataservice.getCriminals(randomPage).then((criminals) => {
-  while(activeRandoms.length != 5){
-    const criminal = criminals.items[Math.floor(Math.random()*16)];
-    // console.log(criminal);
-    if (Validate(criminal)) {
-      let c = new Criminal(criminal);
-      console.log(c);
-      //TODO: ketszer rakja bele a listaba, kell a fix
-      if(!activeRandoms.some((existing: Criminal) => existing.img === c.img)){
-        activeRandoms.push(c);
-        // console.log(activeRandoms);
+    while (activeRandoms.length != 5) {
+      const criminal = criminals.items[Math.floor(Math.random() * 16)];
+      if (Validate(criminal)) {
+        let c = new Criminal(criminal);
+        console.log(c);
+        if (!activeRandoms.some((existing: Criminal) => existing.img === c.img)) {
+          activeRandoms.push(c);
+        }
       }
     }
-  }
-});
-return activeRandoms;
+  });
+  return activeRandoms;
 }
-
-// console.log(activeRandoms)
 
 const Validate = (criminal: any): boolean => {
   return criminal.images && criminal.images.length > 0 && criminal.description != "";
